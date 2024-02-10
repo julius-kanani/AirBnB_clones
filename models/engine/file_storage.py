@@ -36,18 +36,16 @@ class FileStorage:
             key = "{:s}{:s}{:s}".format(
                 type(obj).__name__, ".", obj.id)
 
-            self.__objects[key] = obj
+            self.__objects[key] = obj.to_dict()
 
     def save(self):
         """
         Serializes __objects to the JSON file(path: __file_path).
         """
         objects_dictionary = self.__objects.copy()
-        for key, obj in objects_dictionary.items():
-            object_dictionary[key] = obj.to_dict()
 
         with open(self.__file_path, 'w', encoding='utf-8') as file:
-            json.dump(base_model_objects, file)
+            json.dump(objects_dictionary, file)
 
     def reload(self):
         """
